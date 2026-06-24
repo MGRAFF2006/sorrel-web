@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sorrel - Agent-native version control</title>
+    <meta
+      name="description"
+      content="Sorrel is an agent-native version-control system for human and AI-agent software workflows."
+    >
+    <meta name="theme-color" content="#10261f">
+    <meta property="og:title" content="Sorrel - Agent-native version control">
+    <meta
+      property="og:description"
+      content="A new version-control foundation for humans, parallel AI agents, portable runners, secrets, lanes, and slices."
+    >
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Sorrel home">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span>Sorrel</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#why">Why</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="https://github.com/MGRAFF2006/sorrel">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="hero-copy">
+          <p class="eyebrow">Building in public</p>
+          <h1>Version control for human and AI-agent teams.</h1>
+          <p class="hero-lede">
+            Sorrel is an open, agent-native version-control project for parallel development,
+            portable workflows, secrets-aware execution, and collaboration that still respects Git.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="https://github.com/MGRAFF2006/sorrel">Follow development</a>
+            <a
+              class="button secondary"
+              href="https://github.com/MGRAFF2006/sorrel/blob/main/AGENT_NATIVE_VERSION_CONTROL_REPORT.md"
+            >
+              Read the architecture report
+            </a>
+          </div>
+          <div class="status-strip" aria-label="Current project status">
+            <span class="pulse" aria-hidden="true"></span>
+            <span>Protocol, core storage, CLI, vault, runners, slices, and Hub skeleton are underway.</span>
+          </div>
+        </div>
+
+        <div class="hero-panel" aria-label="Sorrel workflow example">
+          <div class="terminal-card">
+            <div class="terminal-top">
+              <span></span><span></span><span></span>
+            </div>
+            <pre><code>$ sorrel lane create agent/ui-copy
+$ sorrel slice inspect app/landing
+$ sorrel run local test-web
+$ sorrel propose --with-secrets redacted
+
+lane agent/ui-copy
+  changes: 7
+  touched paths: web/, docs/
+  runner: local-process
+  secrets: refs only
+  export: git-compatible</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="why" class="section split">
+        <div>
+          <p class="eyebrow">Why Sorrel exists</p>
+          <h2>Git is essential. It is not the whole workflow anymore.</h2>
+        </div>
+        <div class="copy-stack">
+          <p>
+            Git remains the right compatibility layer for source history, remotes, and migration.
+            But modern development now includes many parallel AI agents, cloud workspaces,
+            generated code, selective context sharing, secrets, and portable execution.
+          </p>
+          <p>
+            Sorrel treats those concerns as first-class objects instead of forcing every agent
+            handoff, review, runner, and environment decision through branches and ad hoc scripts.
+          </p>
+        </div>
+      </section>
+
+      <section class="section problem-grid" aria-label="Git workflow gaps">
+        <article>
+          <span class="card-number">01</span>
+          <h3>Parallel agents need lanes, not branch noise.</h3>
+          <p>Independent AI work should be isolated, inspectable, resumable, and easy to stack.</p>
+        </article>
+        <article>
+          <span class="card-number">02</span>
+          <h3>Context should be sliceable.</h3>
+          <p>Agents often need a focused dependency closure, not the whole repository.</p>
+        </article>
+        <article>
+          <span class="card-number">03</span>
+          <h3>Runners should travel with the work.</h3>
+          <p>Local, container, and user-owned remote compute need a common portable job model.</p>
+        </article>
+        <article>
+          <span class="card-number">04</span>
+          <h3>Secrets should never become patch text.</h3>
+          <p>Environment access, grants, and redaction belong inside the workflow layer.</p>
+        </article>
+      </section>
+
+      <section id="architecture" class="section architecture">
+        <div class="section-heading">
+          <p class="eyebrow">Architecture</p>
+          <h2>Open core primitives with a collaboration layer on top.</h2>
+        </div>
+
+        <div class="layer-diagram">
+          <div class="layer hub">
+            <span>Sorrel Hub</span>
+            <p>Proposals, reviews, projects, policies, runs, and team coordination.</p>
+          </div>
+          <div class="layer primitives">
+            <span>Lanes + Slices + Runners + Vault</span>
+            <p>Agent workspaces, dependency manifests, portable jobs, and secrets refs.</p>
+          </div>
+          <div class="layer core">
+            <span>Sorrel Core</span>
+            <p>Content-addressed objects, blobs, trees, snapshots, changes, and future merge models.</p>
+          </div>
+          <div class="layer git">
+            <span>Git compatibility</span>
+            <p>Import, export, mirror, and migrate without locking teams into Sorrel.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cards">
+        <article class="feature-card accent-core">
+          <p class="eyebrow">Sorrel Core</p>
+          <h3>The version-control engine.</h3>
+          <p>
+            Core is the protocol, object store, local runtime, CLI foundation, and SDK surface.
+            It models snapshots and changes directly so agent-native concepts can be built without
+            pretending every unit of work is just a Git branch.
+          </p>
+        </article>
+        <article class="feature-card accent-hub">
+          <p class="eyebrow">Sorrel Hub</p>
+          <h3>The collaboration product.</h3>
+          <p>
+            Hub is the server and UI layer for organizations, projects, proposals, review comments,
+            workflow runs, policy, and agent coordination. It sits above the open core.
+          </p>
+        </article>
+      </section>
+
+      <section class="section capabilities">
+        <div class="section-heading">
+          <p class="eyebrow">System primitives</p>
+          <h2>Built for how agent-assisted software is actually produced.</h2>
+        </div>
+        <div class="capability-grid">
+          <article>
+            <h3>Lanes</h3>
+            <p>Isolated streams of work for humans or agents, designed for stacks and resumable context.</p>
+          </article>
+          <article>
+            <h3>Slices</h3>
+            <p>Focused manifests that describe the files and dependencies an agent or review needs.</p>
+          </article>
+          <article>
+            <h3>Portable runners</h3>
+            <p>A JobBundle model for local process execution, containers, and future user-owned compute.</p>
+          </article>
+          <article>
+            <h3>Vault</h3>
+            <p>Secrets and environment management with refs, grants, local development backends, and redaction.</p>
+          </article>
+          <article>
+            <h3>Git bridge</h3>
+            <p>Compatibility for import, export, mirroring, and migration so teams can adopt gradually.</p>
+          </article>
+          <article>
+            <h3>Building in public</h3>
+            <p>Progress is tracked in the open as each module moves from skeleton to integrated system.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section compatibility">
+        <div>
+          <p class="eyebrow">Migration path</p>
+          <h2>No hard fork from the ecosystem.</h2>
+        </div>
+        <div class="copy-stack">
+          <p>
+            Sorrel is not trying to make teams abandon Git on day one. The architecture keeps Git as
+            an interoperability layer for source history, hosting, export, and escape hatches.
+          </p>
+          <p>
+            The goal is a better native model for agent work while preserving a practical path back
+            to repositories, pull requests, and existing developer infrastructure.
+          </p>
+        </div>
+      </section>
+
+      <section id="roadmap" class="section roadmap">
+        <div class="section-heading">
+          <p class="eyebrow">Roadmap</p>
+          <h2>Current build sequence.</h2>
+        </div>
+        <ol class="timeline">
+          <li>
+            <span>Now</span>
+            <div>
+              <h3>Public product page</h3>
+              <p>Make Sorrel visible and explain the project while the implementation matures.</p>
+            </div>
+          </li>
+          <li>
+            <span>Next</span>
+            <div>
+              <h3>Core lanes and stacks</h3>
+              <p>Layer Lane and Stack objects on top of changes and snapshots.</p>
+            </div>
+          </li>
+          <li>
+            <span>Next</span>
+            <div>
+              <h3>Workflow parser</h3>
+              <p>Parse simple <code>sorrel.workflow.yml</code> files and execute jobs through local runners.</p>
+            </div>
+          </li>
+          <li>
+            <span>Next</span>
+            <div>
+              <h3>Vault CLI/dev integration</h3>
+              <p>Import env files, list refs, grant access, and redact runner logs.</p>
+            </div>
+          </li>
+          <li>
+            <span>Later</span>
+            <div>
+              <h3>Hub proposal and review expansion</h3>
+              <p>Grow the collaboration layer after the Hub skeleton is confirmed on main.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section project-status">
+        <div class="status-card">
+          <p class="eyebrow">Current status</p>
+          <h2>Sorrel is early, real, and moving quickly.</h2>
+          <p>
+            The project already has module-level foundations for protocol schemas, core storage,
+            CLI shape, vault specs, runners, slices, and the Hub skeleton. The next phase is about
+            turning those foundations into a coherent agent-native workflow.
+          </p>
+          <div class="link-row">
+            <a href="https://github.com/MGRAFF2006/sorrel/blob/main/SORREL_PROGRESS.md">
+              View roadmap/progress dashboard
+            </a>
+            <a href="https://github.com/MGRAFF2006/sorrel/blob/main/AGENT_NATIVE_VERSION_CONTROL_REPORT.md">
+              Read architecture report
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta">
+        <div>
+          <p class="eyebrow">Early interest</p>
+          <h2>Follow the build, inspect the architecture, and help shape the workflow.</h2>
+        </div>
+        <div class="cta-actions">
+          <a class="button primary" href="https://github.com/MGRAFF2006/sorrel">Star or watch on GitHub</a>
+          <a class="button secondary" href="https://github.com/MGRAFF2006/sorrel/issues">
+            Open an issue or idea
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Sorrel</span>
+      <span>Agent-native version control, building in public.</span>
+    </footer>
+
+    <script src="./site.js"></script>
+  </body>
+</html>
