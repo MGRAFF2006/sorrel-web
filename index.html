@@ -142,6 +142,39 @@ lane agent/ui-copy
         </div>
       </section>
 
+      <section class="section permissions">
+        <article class="permissions-panel">
+          <div>
+            <p class="eyebrow">Sorrel Core</p>
+            <h2>Core-native permissions.</h2>
+            <p>
+              Sorrel Core is being designed around a permission spine for humans, agents,
+              runners, workflows, services, and apps. Scoped grants and policy decisions
+              belong with the protocol for paths, lanes, slices, runners, workflows,
+              environments, and secrets.
+            </p>
+          </div>
+          <div class="permission-points" aria-label="Core-native permissions details">
+            <div>
+              <h3>Authority is evaluated from prior authority.</h3>
+              <p>
+                Local clones can edit bytes, but peers, runners, Hub, and remotes should
+                accept permission changes only when they are signed by an already-authorized
+                authority chain. Agents cannot simply edit their own grant files to gain power.
+              </p>
+            </div>
+            <div>
+              <h3>Hub administers; Core remains the source of truth.</h3>
+              <p>
+                Hub is planned as an administration and collaboration surface over Core policy,
+                not the place where permissions get bolted on later. SecretRef semantics,
+                redaction behavior, policy decisions, and audit records are being built into Core.
+              </p>
+            </div>
+          </div>
+        </article>
+      </section>
+
       <section class="section cards">
         <article class="feature-card accent-core">
           <p class="eyebrow">Sorrel Core</p>

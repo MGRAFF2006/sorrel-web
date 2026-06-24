@@ -419,6 +419,45 @@ p {
   background: rgba(255, 255, 255, 0.035);
 }
 
+.permissions {
+  padding-top: 34px;
+}
+
+.permissions-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 34px;
+  padding: clamp(28px, 5vw, 48px);
+  background:
+    radial-gradient(circle at top left, rgba(156, 240, 191, 0.2), transparent 22rem),
+    radial-gradient(circle at 86% 12%, rgba(233, 204, 122, 0.12), transparent 20rem),
+    var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+}
+
+.permissions-panel h2 {
+  max-width: 520px;
+}
+
+.permissions-panel p:last-child,
+.permission-points p:last-child {
+  margin-bottom: 0;
+}
+
+.permission-points {
+  display: grid;
+  gap: 16px;
+}
+
+.permission-points div {
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
 .cards {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -569,6 +608,7 @@ p {
   .hero,
   .split,
   .compatibility,
+  .permissions-panel,
   .cta {
     grid-template-columns: 1fr;
   }
