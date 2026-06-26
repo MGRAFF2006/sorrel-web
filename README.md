@@ -9,8 +9,8 @@ package manager, or framework runtime required.
 ## Files
 
 - `index.html` - landing/product page content and links.
-- `styles.css` - responsive visual design.
-- `site.js` - progressive enhancement for the sticky header state.
+- `styles.css` - responsive visual design (Nord theme; dark default + light mode).
+- `site.js` - progressive enhancement for the sticky header and the persisted dark/light theme toggle.
 
 ## Local preview
 

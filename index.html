@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,13 +8,22 @@
       name="description"
       content="Sorrel is an agent-native version-control system for human and AI-agent software workflows."
     >
-    <meta name="theme-color" content="#10261f">
+    <meta name="theme-color" content="#2e3440">
     <meta property="og:title" content="Sorrel - Agent-native version control">
     <meta
       property="og:description"
       content="A new version-control foundation for humans, parallel AI agents, portable runners, secrets, lanes, and slices."
     >
     <meta property="og:type" content="website">
+    <!-- Apply persisted theme before paint to avoid a flash. Dark is default. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sorrel-theme");
+          document.documentElement.setAttribute("data-theme", t === "light" ? "light" : "dark");
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
@@ -26,8 +35,18 @@
       <nav class="nav" aria-label="Primary navigation">
         <a href="#why">Why</a>
         <a href="#architecture">Architecture</a>
+        <a href="#primitives">Primitives</a>
         <a href="#roadmap">Roadmap</a>
         <a href="https://github.com/MGRAFF2006/sorrel">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+        </button>
       </nav>
     </header>
 
@@ -35,10 +54,10 @@
       <section class="hero section">
         <div class="hero-copy">
           <p class="eyebrow">Building in public</p>
-          <h1>Version control for human and AI-agent teams.</h1>
+          <h1>Version control built for <span class="accent">humans and AI agents</span>.</h1>
           <p class="hero-lede">
             Sorrel is an open, agent-native version-control project for parallel development,
-            portable workflows, secrets-aware execution, and collaboration that still respects Git.
+            portable workflows, and secrets-aware execution &mdash; without abandoning Git.
           </p>
           <div class="hero-actions" aria-label="Primary actions">
             <a class="button primary" href="https://github.com/MGRAFF2006/sorrel">Follow development</a>
@@ -51,26 +70,28 @@
           </div>
           <div class="status-strip" aria-label="Current project status">
             <span class="pulse" aria-hidden="true"></span>
-            <span>Protocol, core storage, CLI, vault, runners, slices, and Hub skeleton are underway.</span>
+            <span>Protocol, core storage, CLI, vault, runners, slices, and the Hub skeleton are underway.</span>
           </div>
         </div>
 
         <div class="hero-panel" aria-label="Sorrel workflow example">
           <div class="terminal-card">
             <div class="terminal-top">
-              <span></span><span></span><span></span>
+              <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+              <span class="term-title">sorrel &mdash; zsh</span>
             </div>
-            <pre><code>$ sorrel lane create agent/ui-copy
-$ sorrel slice inspect app/landing
-$ sorrel run local test-web
-$ sorrel propose --with-secrets redacted
+<pre><code><span class="t-prompt">$</span> <span class="t-cmd">sorrel lane create</span> agent/ui-copy
+<span class="t-prompt">$</span> <span class="t-cmd">sorrel slice inspect</span> app/landing
+<span class="t-prompt">$</span> <span class="t-cmd">sorrel run local</span> test-web
+<span class="t-prompt">$</span> <span class="t-cmd">sorrel propose</span> <span class="t-flag">--with-secrets</span> redacted
 
-lane agent/ui-copy
-  changes: 7
-  touched paths: web/, docs/
-  runner: local-process
-  secrets: refs only
-  export: git-compatible</code></pre>
+<span class="t-key">lane</span> <span class="t-val">agent/ui-copy</span>
+  <span class="t-key">changes</span>:      <span class="t-val">7</span>
+  <span class="t-key">touched</span>:      <span class="t-val">web/, docs/</span>
+  <span class="t-key">runner</span>:       <span class="t-val">local-process</span>
+  <span class="t-key">secrets</span>:      <span class="t-val">refs only</span>
+  <span class="t-key">export</span>:       <span class="t-val">git-compatible</span>
+<span class="t-comment"># proposal ready for review</span></code></pre>
           </div>
         </div>
       </section>
@@ -78,7 +99,7 @@ lane agent/ui-copy
       <section id="why" class="section split">
         <div>
           <p class="eyebrow">Why Sorrel exists</p>
-          <h2>Git is essential. It is not the whole workflow anymore.</h2>
+          <h2>Git is essential. It is no longer the whole workflow.</h2>
         </div>
         <div class="copy-stack">
           <p>
@@ -148,7 +169,7 @@ lane agent/ui-copy
             <p class="eyebrow">Sorrel Core</p>
             <h2>Core-native permissions.</h2>
             <p>
-              Sorrel Core is being designed around a permission spine for humans, agents,
+              Sorrel Core is built around a permission spine for humans, agents,
               runners, workflows, services, and apps. Scoped grants and policy decisions
               belong with the protocol for paths, lanes, slices, runners, workflows,
               environments, and secrets.
@@ -158,17 +179,17 @@ lane agent/ui-copy
             <div>
               <h3>Authority is evaluated from prior authority.</h3>
               <p>
-                Local clones can edit bytes, but peers, runners, Hub, and remotes should
-                accept permission changes only when they are signed by an already-authorized
+                Local clones can edit bytes, but peers, runners, Hub, and remotes accept
+                permission changes only when they are signed by an already-authorized
                 authority chain. Agents cannot simply edit their own grant files to gain power.
               </p>
             </div>
             <div>
               <h3>Hub administers; Core remains the source of truth.</h3>
               <p>
-                Hub is planned as an administration and collaboration surface over Core policy,
+                Hub is an administration and collaboration surface over Core policy,
                 not the place where permissions get bolted on later. SecretRef semantics,
-                redaction behavior, policy decisions, and audit records are being built into Core.
+                redaction behavior, policy decisions, and audit records live in Core.
               </p>
             </div>
           </div>
@@ -195,7 +216,7 @@ lane agent/ui-copy
         </article>
       </section>
 
-      <section class="section capabilities">
+      <section id="primitives" class="section capabilities">
         <div class="section-heading">
           <p class="eyebrow">System primitives</p>
           <h2>Built for how agent-assisted software is actually produced.</h2>
@@ -215,7 +236,7 @@ lane agent/ui-copy
           </article>
           <article>
             <h3>Vault</h3>
-            <p>Secrets and environment management with refs, grants, local development backends, and redaction.</p>
+            <p>Secrets and environment management with refs, grants, local backends, and redaction.</p>
           </article>
           <article>
             <h3>Git bridge</h3>
@@ -251,39 +272,39 @@ lane agent/ui-copy
           <h2>Current build sequence.</h2>
         </div>
         <ol class="timeline">
-          <li>
+          <li class="is-now">
             <span>Now</span>
             <div>
-              <h3>Public product page</h3>
-              <p>Make Sorrel visible and explain the project while the implementation matures.</p>
+              <h3>Persistent local VCS demo</h3>
+              <p>Wire the real object store, snapshots, and changes into the CLI so repo state persists on disk across runs.</p>
             </div>
           </li>
-          <li>
+          <li class="is-next">
             <span>Next</span>
             <div>
               <h3>Core lanes and stacks</h3>
               <p>Layer Lane and Stack objects on top of changes and snapshots.</p>
             </div>
           </li>
-          <li>
+          <li class="is-next">
             <span>Next</span>
             <div>
-              <h3>Workflow parser</h3>
-              <p>Parse simple <code>sorrel.workflow.yml</code> files and execute jobs through local runners.</p>
+              <h3>Workflow execution</h3>
+              <p>Parse <code>sorrel.workflow.yml</code> files and execute jobs through portable local runners.</p>
             </div>
           </li>
-          <li>
+          <li class="is-next">
             <span>Next</span>
             <div>
               <h3>Vault CLI/dev integration</h3>
               <p>Import env files, list refs, grant access, and redact runner logs.</p>
             </div>
           </li>
-          <li>
+          <li class="is-later">
             <span>Later</span>
             <div>
               <h3>Hub proposal and review expansion</h3>
-              <p>Grow the collaboration layer after the Hub skeleton is confirmed on main.</p>
+              <p>Grow the collaboration layer on top of Core policy after the Hub skeleton is confirmed.</p>
             </div>
           </li>
         </ol>
@@ -294,9 +315,9 @@ lane agent/ui-copy
           <p class="eyebrow">Current status</p>
           <h2>Sorrel is early, real, and moving quickly.</h2>
           <p>
-            The project already has module-level foundations for protocol schemas, core storage,
-            CLI shape, vault specs, runners, slices, and the Hub skeleton. The next phase is about
-            turning those foundations into a coherent agent-native workflow.
+            The project already has working foundations for protocol schemas, content-addressed
+            core storage, the CLI shape, vault specs, runners, slices, and the Hub skeleton. The next
+            phase turns those foundations into a coherent agent-native workflow.
           </p>
           <div class="link-row">
             <a href="https://github.com/MGRAFF2006/sorrel/blob/main/SORREL_PROGRESS.md">
